@@ -27,9 +27,12 @@ android {
         }
         python {
             version "3.8"
+            buildPython "C:/Program Files (x86)/Python38/python.exe"
+
             pip{
                 options "--upgrade","--ignore-installed","--force-reinstall"
-                install "git+https://github.com/DZZN-DEV/scdl.git"
+                install "yt-dlp"
+                install "git+https://github.com/pytube/pytube"
             }
         }
         ndk {
@@ -46,6 +49,14 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+            universalApk true
+        }
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -78,7 +89,8 @@ dependencies {
     androidTestImplementation "androidx.work:work-testing:$work_version"
     implementation "androidx.work:work-multiprocess:$work_version"
 
-    implementation 'com.writingminds:FFmpegAndroid:0.3.2'
+    // implementation com.writingminds:FFmpegAndroid:0.3.2
+    implementation 'com.arthenica:ffmpeg-kit-full:6.0-2'
 
 
     // HILT DI
